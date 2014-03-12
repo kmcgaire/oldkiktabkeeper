@@ -62,6 +62,18 @@ exports.createTab = function (to, from, description, amount, callback) {
 };
 
 
-exports.getTabs = function() {
-
+exports.getTabs = function(user1, user2, callback) {
+  Tabs.find({
+    $or: [
+      {
+        to:user1,
+        from:user2
+      },
+      {
+        to:user2,
+        from:user1
+      }]
+  }, function(err,docs) {
+    callback(docs)
+  })
 };
