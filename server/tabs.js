@@ -62,7 +62,7 @@ exports.createTab = function (to, from, description, amount, callback) {
 };
 
 
-exports.getTabs = function(user1, user2, callback) {
+exports.getTabs = function(user1, user2, limit, callback) {
   Tabs.find({
     $or: [
       {
@@ -73,7 +73,7 @@ exports.getTabs = function(user1, user2, callback) {
         to:user2,
         from:user1
       }]
-  }, function(err,docs) {
+  }).limit(limit , function(err,docs) {
     callback(docs)
   })
 };
