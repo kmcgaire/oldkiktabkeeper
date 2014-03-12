@@ -16,7 +16,8 @@ exports.createTab = function (to, from, description, amount, callback) {
     from: from,
     description: description,
     amount: amount,
-    date: new Date().getTime()
+    date: new Date().getTime(),
+    verified: false
   };
   Tabs.insert(newTab);
   Summary.findOne({
@@ -62,18 +63,19 @@ exports.createTab = function (to, from, description, amount, callback) {
 };
 
 
-exports.getTabs = function(user1, user2, limit, callback) {
+exports.getTabs = function (user1, user2, limit, callback) {
   Tabs.find({
     $or: [
       {
-        to:user1,
-        from:user2
+        to: user1,
+        from: user2
       },
       {
-        to:user2,
-        from:user1
-      }]
-  }).limit(limit , function(err,docs) {
-    callback(docs)
-  })
+        to: user2,
+        from: user1
+      }
+    ]
+  }).limit(limit, function (err, docs) {
+      callback(docs)
+    })
 };
